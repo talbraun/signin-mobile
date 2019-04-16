@@ -1,5 +1,6 @@
 .vertical-center {
   padding: 25% 0 25% 0;
+<<<<<<< HEAD
   margin: auto;
   display: inline-block;
 }
@@ -7,3 +8,25 @@
 .box {
   display: grid;
 }
+=======
+  
+  display: inline-block;
+  position: absolute;
+  margin: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+
+.box {
+  display: grid;
+}
+
+html,body,#root{height:100%;}
+.m100 {
+    height:100%;
+    min-height:100%;
+}
+>>>>>>> commit
