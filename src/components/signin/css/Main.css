@@ -1,0 +1,9 @@
+.vertical-center {
+  padding: 25% 0 25% 0;
+  margin: auto;
+  display: inline-block;
+}
+
+.box {
+  display: grid;
+}
