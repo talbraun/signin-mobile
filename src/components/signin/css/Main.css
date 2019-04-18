@@ -1,0 +1,33 @@
+.vertical-center {
+  padding: 25% 0 25% 0;
+  display: inline-block;
+  position: absolute;
+  margin: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.jumbotron{
+  box-shadow: 10px 5px 5px #404240;
+}
+
+.box {
+  display: grid;
+}
+
+html,body,#root{height:100%;}
+.m100 {
+    height:100%;
+    min-height:100%;
+}
+.box-main{
+  display: inherit
+}
+.box-header{
+  margin: auto;
+  font-family: 'Muli', sans-serif;
+  font-size: 6em
+
+}
