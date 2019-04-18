@@ -7,12 +7,6 @@ import Omer from "../../imges/pp.jpg";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 
-<<<<<<< HEAD
-const Main = props => (
-  <div className="main container">
-    <div className="col-12 row justify-content-center vertical-center">
-      <div className="jumbotron col-8 box">
-=======
 const Main = (props) => {
   
     let styles = {
@@ -22,7 +16,6 @@ return(
   <div className="main container m100">
     <div className="row justify-content-center vertical-center">
       <div className="jumbotron col-8 box" style={styles}>
->>>>>>> commit
         <Grid container justify="center" alignItems="center">
           <Avatar alt="Remy Sharp" src={Omer} className="avatar" />
         </Grid>
@@ -52,10 +45,6 @@ return(
       </div>
     </div>
   </div>
-<<<<<<< HEAD
-);
-=======
 )};
->>>>>>> commit
 
 export default Main;
