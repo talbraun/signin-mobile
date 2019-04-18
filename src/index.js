@@ -9,11 +9,7 @@ import "./styles.css";
 function App() {
   return (
     <div className="App">
-<<<<<<< HEAD
-      <Header />
-=======
       
->>>>>>> commit
       <Main />
     </div>
   );
