@@ -20,6 +20,7 @@ return(
       <div className="box-header">Welcome</div>
       <div className="box-main">
         <TextField
+          onChange={props.email}
           id="outlined-email-input"
           label="Email"
           type="email"
@@ -31,6 +32,7 @@ return(
         />
 
         <TextField
+          onChange={props.password}
           id="outlined-password-input"
           label="Password"
           type="password"
@@ -38,7 +40,7 @@ return(
           margin="normal"
           variant="outlined"
         />
-        <Button variant="contained" color="primary">
+        <Button onClick={props.logIn} variant="contained" color="primary">
           LOGIN
         </Button>
         </div>
