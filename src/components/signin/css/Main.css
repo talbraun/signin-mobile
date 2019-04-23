@@ -30,3 +30,5 @@ html,body,#root{height:100%;}
   font-family: 'Muli', sans-serif;
 
 }
+
+button{max-height: 50px}
