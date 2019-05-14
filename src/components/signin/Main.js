@@ -1,24 +1,33 @@
 import React from "react";
-import ReactDOM from "react-dom";
+//import ReactDOM from "react-dom";
 import "./css/Main.css";
 import Avatar from "@material-ui/core/Avatar";
 import Grid from "@material-ui/core/Grid";
+
+//import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
 //import Omer from "../../imges/pp.jpg";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+
+const stylesAvatar = {
+  avatar: {
+    margin: 10
+  },
+  bigAvatar: {
+    margin: 10,
+    width: 150,
+    height: 150
+  }
+};
 
 const Main = props => {
   let styles = {
     marginBottom: "0px"
   };
   let styles2 = { margin: "auto", padding: "10% 0 15% 0" };
-  let styles3 = {
-    bigAvatar: {
-      margin: 10,
-      width: 60,
-      height: 60
-    }
-  };
+
+  const { classes } = props;
 
   return (
     <div className="main container m100">
@@ -32,7 +41,7 @@ const Main = props => {
               <Avatar
                 alt="Remy Sharp"
                 src={props.avatarLink}
-                className={styles3.bigAvatar}
+                className={classes.bigAvatar}
               />
             </Grid>
           ) : (
@@ -73,7 +82,7 @@ const Main = props => {
 
             {props.courseCodeBox === true ? (
               <TextField
-                //onChange={props.password}
+                onChange={props.lessonCode}
                 id="outlined-password-input"
                 label="Password"
                 type="password"
@@ -88,6 +97,13 @@ const Main = props => {
             <Button onClick={props.logIn} variant="contained" color="primary">
               {props.buttonText}
             </Button>
+            <Button
+              onClick={props.signUp}
+              variant="contained"
+              color="secondary"
+            >
+              Sign Up
+            </Button>
           </div>
         </div>
       </div>
@@ -95,4 +111,4 @@ const Main = props => {
   );
 };
 
-export default Main;
+export default withStyles(stylesAvatar)(Main);
