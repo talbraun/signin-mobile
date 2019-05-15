@@ -1,13 +1,19 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter, Switch, withRouter, Route } from "react-router-dom";
-//import Button from "@material-ui/core/Button";
+import {
+  BrowserRouter,
+  Switch,
+  withRouter,
+  Route,
+  HashRouter
+} from "react-router-dom";
 import Header from "./components/signin/Header";
 import Main from "./components/signin/Main";
 import Chat from "./components/signin/Chat";
 import SignUp from "./components/signin/SignUp";
 import * as firebase from "firebase";
-import { Navbar } from "react-bootstrap";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 import "bootstrap/dist/css/bootstrap.css";
 import "./styles.css";
@@ -33,30 +39,9 @@ class App extends Component {
     userMessage: "",
     chatMode: false,
     messages: "",
-    enters: ""
+    enters: "",
+    alert: false
   };
-
-  /* componentDidMount() {
-    console.log("it's works!");
-
-    //var ref = firebase.database().ref("messages").on('child_added', function (childSnapshot, prevChildKey) { console.log(childSnapshot)});
-    //console.log(ref)
-    // Find all dinosaurs whose height is exactly 25 meters.
-
-    console.log("lesson ID is: " + this.state.lessonCode);
-
-    if (this.state.chatMode === true) {
-      var ref = firebase.database().ref("messages/");
-      ref
-        .orderByChild("lessonCode")
-        .equalTo(this.state.lessonCode)
-        .on("value", snapshot => {
-          var data = snapshot.val();
-          this.setState({ messages: data });
-          console.log(data);
-        });
-    }
-  }*/
 
   setEmail = e => {
     this.setState({ idValue: e.target.value });
@@ -80,22 +65,40 @@ class App extends Component {
       .then(response => response.json())
       .then(data => {
         this.setState({ personDetails: data });
+        if (
+          (this.state.personDetails.Userpassword !== null) &
+          (this.state.personDetails.Id !== null)
+        ) {
+          console.log(this.state.personDetails);
+          const person = this.state.personDetails;
+          const uPassword = this.state.passwordValue;
+          const uID = this.state.idValue;
+          this.setState({
+            avatarLink: "https://proj.ruppin.ac.il/bgroup86/prod/" + person.Img
+          });
+          this.setState({
+            userName:
+              this.state.personDetails.FirstName.charAt(0).toUpperCase() +
+              this.state.personDetails.FirstName.slice(1)
+          });
 
-        console.log(this.state.personDetails);
-        const person = this.state.personDetails;
-        const uPassword = this.state.passwordValue;
-        const uID = this.state.idValue;
-        this.setState({
-          avatarLink: "https://proj.ruppin.ac.il/bgroup86/prod/" + person.Img
-        });
-        this.setState({
-          userName:
-            this.state.personDetails.FirstName.charAt(0).toUpperCase() +
-            this.state.personDetails.FirstName.slice(1)
-        });
+          if (person.Userpassword === uPassword && person.Id === uID) {
+            this.props.history.push("/coursecode");
+          }
+        } else {
+          const MySwal2 = withReactContent(Swal);
 
-        if (person.Userpassword === uPassword && person.Id === uID) {
-          this.props.history.push("/coursecode");
+          MySwal2.fire({
+            onOpen: () => {
+              MySwal2.clickConfirm();
+            }
+          }).then(() => {
+            return MySwal2.fire({
+              type: "error",
+              title: "Oops...",
+              text: "that's not a match."
+            });
+          });
         }
       });
 
@@ -103,7 +106,7 @@ class App extends Component {
   };
 
   startLesson = () => {
-    console.log("state1" + this.state.lessonCode);
+    
     const url =
       "https://proj.ruppin.ac.il/bgroup86/prod/api/lesson/?lessonCode=" +
       this.state.lessonCode;
@@ -119,7 +122,19 @@ class App extends Component {
           this.props.history.push("/chat");
           this.setState({ chatMode: true });
         } else {
-          alert("error");
+          const MySwal = withReactContent(Swal);
+
+          MySwal.fire({
+            onOpen: () => {
+              MySwal.clickConfirm();
+            }
+          }).then(() => {
+            return MySwal.fire({
+              type: "error",
+              title: "Oops...",
+              text: "the lesson hasn't began"
+            });
+          });
         }
       });
   };
@@ -189,7 +204,7 @@ class App extends Component {
   updateLikesStatus = () => {
     //get all the ids that was connected to the lesson
 
-    var idArray = [];
+   
     var entersLog;
     var ref = firebase.database().ref("enters/");
     ref
@@ -321,6 +336,7 @@ class App extends Component {
               logIn={e => {
                 this.startLesson();
               }}
+              alert={this.state.alert}
               exact
             />
           )}
@@ -369,11 +385,11 @@ export default (!firebase.apps.length
 
 const A = withRouter(App);
 const app = (
-  <BrowserRouter>
+  <HashRouter>
     <Switch>
       <A />
     </Switch>
-  </BrowserRouter>
+  </HashRouter>
 );
 const rootElement = document.getElementById("root");
 ReactDOM.render(app, rootElement);

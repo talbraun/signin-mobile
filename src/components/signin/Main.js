@@ -97,13 +97,18 @@ const Main = props => {
             <Button onClick={props.logIn} variant="contained" color="primary">
               {props.buttonText}
             </Button>
-            <Button
-              onClick={props.signUp}
-              variant="contained"
-              color="secondary"
-            >
-              Sign Up
-            </Button>
+
+            {props.courseCodeBox === true ? (
+              ""
+            ) : (
+              <Button
+                onClick={props.signUp}
+                variant="contained"
+                color="secondary"
+              >
+                Sign Up
+              </Button>
+            )}
           </div>
         </div>
       </div>

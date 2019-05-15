@@ -73,31 +73,41 @@ class SignUp extends Component {
           alert("Sorry the ID is registered ");
         } else {
           alert("add to data base");
-          var url2 = "https://proj.ruppin.ac.il/bgroup86/prod/api/person";
+
           var data2 = {
             Id: this.state.Id,
             FirstName: this.state.FirstName,
             LastName: this.state.LastName,
             Email: this.state.Email,
-            UserPassword: this.state.UserPassword,
+            Userpassword: this.state.UserPassword,
             Gender: this.state.Gender,
             Type: this.state.Type,
             Img: ""
           };
-
-          fetch(url2, {
-            method: "POST",
-
-            body: JSON.stringify(data2), // data can be `string` or {object}!
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json"
-            }
-          })
-            .then(res => res.json())
-
-            .then(response => console.log("Success:", JSON.stringify(response)))
-            .catch(error => console.error("Error:", error));
+          var url2 =
+            "https://proj.ruppin.ac.il/bgroup86/prod/api/Person/?Id=" +
+            data2.Id +
+            "&FirstName=" +
+            data2.FirstName +
+            "&LastName=" +
+            data2.LastName +
+            "&Email=" +
+            data2.Email +
+            "&Userpassword=" +
+            data2.Userpassword +
+            "&Gender=" +
+            data2.Gender +
+            "&Type=" +
+            data2.Type +
+            "&Img=" +
+            data2.Img;
+          fetch(url2)
+            .then(this.handleErrors)
+            .then(response => response.json())
+            .then(data3 => {
+              alert("success");
+              console.log(data3);
+            });
         }
       });
   };
